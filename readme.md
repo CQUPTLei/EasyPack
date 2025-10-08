@@ -18,7 +18,7 @@ pyinstaller -F --paths=E:\anaconda3\envs\yt_dlp_env\Lib\site-packages --python=E
 
 ## 应用截图
 
-<img src="E:\EasyPack\resources\app.png" alt="*(hello)*" style="zoom:80%;" />
+![](resources/app.png)
 
 ## 主要功能
 

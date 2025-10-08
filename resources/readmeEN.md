@@ -16,7 +16,7 @@ This tool is particularly designed for Python developers who use **Conda** for e
 
 ## Application Screenshot
 
-<img src="E:\EasyPack\resources\app.png" alt="*(hello)*" style="zoom:80%;" />
+![](app.png)
 
 ## Key Features
 
