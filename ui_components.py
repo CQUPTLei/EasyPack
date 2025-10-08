@@ -14,6 +14,20 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtGui import QIcon, QFont
 from PyQt6.QtCore import Qt
+import sys
+
+
+def resource_path(relative_path):
+    """ 获取资源的绝对路径，无论是开发环境还是打包后的环境 """
+    try:
+        # PyInstaller 创建一个临时文件夹，并把路径存储在 _MEIPASS 中
+        base_path = sys._MEIPASS
+    except Exception:
+        # 如果不是打包状态，就使用常规的路径
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
 
 # --- 主题样式表 ---
 LIGHT_THEME = """
@@ -53,9 +67,19 @@ class PyInstallerGUI(QMainWindow):
         super().__init__()
         self.setWindowTitle("PyInstaller GUI Pro")
         self.setMinimumSize(1200, 750)
-        self.setWindowIcon(QIcon(self.style().standardIcon(
-            self.style().StandardPixmap.SP_CommandLink
-        )))
+        # self.setWindowIcon(QIcon(self.style().standardIcon(
+        #     self.style().StandardPixmap.SP_CommandLink
+        # )))
+        # self.setWindowIcon(QIcon("resources/icon.ico"))
+        app_icon_path = resource_path("resources/icon.ico")
+        if os.path.exists(app_icon_path):
+            self.setWindowIcon(QIcon(app_icon_path))
+        else:
+            # 如果找不到自定义图标，就使用系统默认图标作为备用
+            self.setWindowIcon(QIcon(self.style().standardIcon(
+                self.style().StandardPixmap.SP_CommandLink
+            )))
+
         self.python_executable = None
         self.output_path = None
 
