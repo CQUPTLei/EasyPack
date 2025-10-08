@@ -65,7 +65,7 @@ DARK_THEME = """
 class PyInstallerGUI(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("PyInstaller GUI Pro")
+        self.setWindowTitle("EasyPack")
         self.setMinimumSize(1200, 750)
         # self.setWindowIcon(QIcon(self.style().standardIcon(
         #     self.style().StandardPixmap.SP_CommandLink
@@ -103,7 +103,7 @@ class PyInstallerGUI(QMainWindow):
 
         appearance_group = QGroupBox("外观")
         appearance_layout = QHBoxLayout()
-        self.dark_mode_check = QCheckBox("黑暗模式")
+        self.dark_mode_check = QCheckBox("深色模式")
         appearance_layout.addWidget(self.dark_mode_check)
         appearance_group.setLayout(appearance_layout)
 

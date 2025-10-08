@@ -1,7 +1,15 @@
+# -*- coding = utf-8 -*-
+# @TIME : 2025/10/08 21:12
+# @Author : Grace
+# @File : main.py
+# @Software : PyCharm Professional 2025.1.2
+# Introduction： 打包测试
+
 import sys
 import random
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QListWidget, QLineEdit, QLabel
 from PyQt6.QtGui import QColor
+
 
 class FancyWindow(QMainWindow):
     def __init__(self):
@@ -46,6 +54,7 @@ class FancyWindow(QMainWindow):
             b = random.randint(0, 255)
             item.setBackground(QColor(r, g, b))
             item.setForeground(QColor(255 - r, 255 - g, 255 - b))  # 字体颜色对比
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

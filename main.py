@@ -49,15 +49,23 @@ class MainAppController:
         )
         for widget in widgets_to_connect:
             if isinstance(widget, QLineEdit):
-                widget.textChanged.connect(self.view.update_command_preview)
+                widget.textChanged.connect(self._safe_update_command_preview)
             elif isinstance(widget, (QCheckBox, QRadioButton)):
-                widget.toggled.connect(self.view.update_command_preview)
+                widget.toggled.connect(self._safe_update_command_preview)
             elif isinstance(widget, QComboBox):
-                widget.currentIndexChanged.connect(self.view.update_command_preview)
+                widget.currentIndexChanged.connect(self._safe_update_command_preview)
 
-        # 连接表格数据变化的信号
-        self.view.data_table.model().rowsInserted.connect(self.view.update_command_preview)
-        self.view.data_table.model().rowsRemoved.connect(self.view.update_command_preview)
+        # 连接表格数据变化的信号 - 使用安全的更新方法
+        self.view.data_table.model().rowsInserted.connect(self._safe_update_command_preview)
+        self.view.data_table.model().rowsRemoved.connect(self._safe_update_command_preview)
+
+    def _safe_update_command_preview(self):
+        """安全地更新命令预览，捕获可能的异常"""
+        try:
+            self.view.update_command_preview()
+        except Exception as e:
+            # 静默处理异常，避免程序崩溃
+            print(f"更新命令预览时出错: {e}")
 
     def _load_initial_data(self):
         """加载初始数据，例如获取Conda环境列表"""
@@ -145,7 +153,7 @@ class MainAppController:
         if return_code == 0 and not self.build_worker.is_cancelled:
             # 构建成功
             self.view.log_to_console("\n--- 构建成功! ---", color="green")
-            # 激活“打开目录”按钮
+            # 激活"打开目录"按钮
             self.view.open_output_dir_button.setEnabled(True)
         elif not self.build_worker.is_cancelled:
             # 构建失败
